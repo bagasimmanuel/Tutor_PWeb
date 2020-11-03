@@ -19,6 +19,7 @@
     <a class="navbar-brand" href="#"><img src="images/peeporip.gif" alt="PEEPORIP" width="50px"></a>
     <?php if ($_SESSION) : ?>
         <p class="navbar-nav ml-auto mr-4 mt-2 mt-lg-0"><?php echo $_SESSION['username']?> </p>
+        <a href="update.php/?id=<?php echo $_SESSION['id']?>" class="mr-4">Update gan</a> 
         <a href="logout.php">Logout bang</a>
     <?php else: ?>
     <ul class="navbar-nav ml-auto mr-4 mt-2 mt-lg-0">
@@ -45,15 +46,8 @@
              <td> <?= ++$i ?>  </td>
              <td> <?=  $row['username'] ?>  </td>
              <td> <?=  $row['email'] ?>  </td>
-             <td> 
-                <?php if($_SESSION) :?>
-                  <?php if($_SESSION['id'] == $row['id']) : ?>
-                    <a href="update.php/?id=<?php echo $_SESSION['id']?>">Update gan</a> 
-                  <?php endif; ?>
-                <?php else:?>
-                  <p>You cant do shit</p>
-                <?php endif;?>
-              </td>
+             <td> <a href="profile.php/?id=<?=$row['id']?>" class="btn btn-primary"> Details </a> </td>
+             <!-- <td> <img src="uploads/<?=$row['image']?>" alt=""></td> -->
            </tr>
         <?php endforeach;?>
         </table>

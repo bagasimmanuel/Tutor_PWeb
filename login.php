@@ -16,8 +16,8 @@
             session_start();
             $_SESSION['username'] = $username;
             $_SESSION['id'] = $row['id'];
-            var_dump($_SESSION['id']);
-            // header('Location: index.php');
+            // var_dump($_SESSION['id']);
+            header('Location: index.php');
             }
         }else{
             echo "No Dataset";
