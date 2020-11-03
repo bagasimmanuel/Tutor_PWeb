@@ -1,6 +1,14 @@
 <?php
     session_start();
-    include 'header.php'
+    include 'header.php';
+
+    include 'conn.php';
+
+    $sql = "SELECT * FROM users";
+
+    $rows = mysqli_query($conn,$sql);
+    $i = 0;
+    mysqli_close($conn);
 
 ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -25,7 +33,30 @@
   </div>
 </nav>
     <div class="container">
-        <p>tes</p>
+        <table class="table">
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        <?php foreach($rows as $row) : ?>
+           <tr>
+             <td> <?= ++$i ?>  </td>
+             <td> <?=  $row['username'] ?>  </td>
+             <td> <?=  $row['email'] ?>  </td>
+             <td> 
+                <?php if($_SESSION) :?>
+                  <?php if($_SESSION['id'] == $row['id']) : ?>
+                    <a href="update.php/?id=<?php echo $_SESSION['id']?>">Update gan</a> 
+                  <?php endif; ?>
+                <?php else:?>
+                  <p>You cant do shit</p>
+                <?php endif;?>
+              </td>
+           </tr>
+        <?php endforeach;?>
+        </table>
     </div>
 
 <? include 'footer.php' ?>

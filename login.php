@@ -5,17 +5,23 @@
     if(isset($_POST['submit'])){
         // session_start();
         $username = $_POST['username'];
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $password = password_verify($_POST['password'], $hash);
 
-        $sql = "SELECT `username`,`password` FROM users WHERE `username` = '$username' AND `password` = '$password'";
-
-        if (mysqli_query($conn, $sql)) {
+        $sql = "SELECT * FROM users WHERE `username`='$username'";
+        $result = mysqli_query($conn,$sql);
+        $row = $result->fetch_assoc();
+        if($row != NULL){
+            if(password_verify($_POST['password'],$row['password'])){
             session_start();
             $_SESSION['username'] = $username;
-            header('Location: index.php');
-            } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            $_SESSION['id'] = $row['id'];
+            var_dump($_SESSION['id']);
+            // header('Location: index.php');
             }
+        }else{
+            echo "No Dataset";
+        }
     
     }
     mysqli_close($conn);
