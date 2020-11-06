@@ -1,12 +1,16 @@
 <?php
     session_start();
 
+    $id = $_GET['id'];
+    if(!($_SESSION)){
+        header('location: login.php?redirectProfile='.$id);
+    }
     include 'header.php';
+
     include 'conn.php';
+    $sql = "SELECT * FROM users WHERE id=$id";
 
-    $sql = "SELECT * FROM users";
-
-    $rows = mysqli_query($conn, $sql);
+    $rows = mysqli_query($conn,$sql);
     $i = 0;
     mysqli_close($conn);
 
@@ -36,21 +40,28 @@
             <?php endif; ?>
         </div>
     </nav>
-    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-xl-12 img-cover">
+                <?php foreach($rows as $row) : ?>
+                    <img src="uploads/<?=$row['image']?>" alt="Foto profil <?= $row['username'] ?>" class="cover-img">
+                    <div class="overlay-black"></div>
+                    <img class="profile-img img-responsive img img-thumbnail" src="uploads/<?=$row['image']?>" alt="Foto profil <?= $row['username'] ?>">
+                <?php endforeach;?>
+            </div>
+        </div>
+    <div class="container-xl">
         <table class="table">
             <tr>
                 <th>No</th>
                 <th>Nama</th>
                 <th>Email</th>
-                <th>Action</th>
             </tr>
             <?php foreach($rows as $row) : ?>
                 <tr>
                     <td> <?= ++$i ?>  </td>
                     <td> <?=  $row['username'] ?>  </td>
                     <td> <?=  $row['email'] ?>  </td>
-                    <td> <a href="profile.php?id=<?=$row['id']?>" class="btn btn-primary"> Details </a> </td>
-                    <!-- <td> <img src="uploads/<?=$row['image']?>" alt=""></td> -->
+                    <td> <img src="uploads/<?=$row['image']?>" alt="Foto profil <?= $row['username'] ?>" class="img-thumbnail" width="200px" height="200px"> </td>
                 </tr>
             <?php endforeach;?>
         </table>

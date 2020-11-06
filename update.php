@@ -1,5 +1,10 @@
 <?php
     session_start();
+
+    if(!($_SESSION)){
+        header('location: login.php');
+    }
+
     include 'header.php';
     include 'conn.php';
 
@@ -35,7 +40,7 @@
     }
 
     // var_dump($_GET['id']);
-    $id = $_GET['id'];
+    $id = $_SESSION['id'];
     $sql = "SELECT * FROM users WHERE `id`= $id";
 
     $result = mysqli_query($conn,$sql);
@@ -50,12 +55,12 @@
         <form action="update.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="exampleInputEmail1">Bio</label>
-                <input type="text" class="form-control" name="bio" required placeholder="<?= $row['bio'] ?>">
+                <input type="text" class="form-control" name="bio" value="<?= $row['bio'] ?>">
                 <small id="emailHelp" class="form-text text-muted">Jangan lebay bang</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Description</label>
-                <input type="text" class="form-control" name="desc" required placeholder="<?= $row['description'] ?>">
+                <input type="text" class="form-control" name="desc" value="<?= $row['description'] ?>">
                 <small id="emailHelp" class="form-text text-muted">Deskripsikan hidup anda dalam 1 paragraf :)</small>
             </div>
             <div class="form-group">

@@ -1,30 +1,35 @@
 <?php
+    session_start();
 
     include 'conn.php';
     include 'header.php';
 
+    if($_SESSION){
+        header('location: index.php');
+    } else{
 
-
-    if(isset($_POST['submit'])){
-        if($_POST['password'] !== $_POST['confirm_password'])
-        header('Location: register.php');
-
-        $email = $_POST['email'];
-        $username = $_POST['username'];
-        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-        $bio = $_POST['bio'];
-        $desc = $_POST['desc'];
-        
-        $sql = "INSERT INTO users (`email`, `username`, `password`,`bio`,`description`)
-        VALUES ('$email', '$username', '$password','$bio','$desc')";
-
-        if (mysqli_query($conn, $sql)) {
-        echo "New record created successfully";
-        } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        if(isset($_POST['submit'])){
+            if($_POST['password'] !== $_POST['confirm_password'])
+            header('Location: register.php');
+    
+            $email = $_POST['email'];
+            $username = $_POST['username'];
+            $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+            $bio = $_POST['bio'];
+            $desc = $_POST['desc'];
+            
+            $sql = "INSERT INTO users (`email`, `username`, `password`,`bio`,`description`)
+            VALUES ('$email', '$username', '$password','$bio','$desc')";
+    
+            if (mysqli_query($conn, $sql)) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
         }
-    mysqli_close($conn);
+        mysqli_close($conn);
+
+    }
 ?>
 
     <div class="jumbotron">
