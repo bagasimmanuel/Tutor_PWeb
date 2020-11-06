@@ -42,29 +42,38 @@
             <?php endif; ?>
         </div>
     </nav>
-        <div class="row no-gutters">
-            <div class="col-xl-12 img-cover">
-                <img src="uploads/<?php echo $data['image']?>" alt="Foto profil <?php echo $data['username'] ?>" class="cover-img">
-                <div class="overlay-black"></div>
-                <img class="profile-img img-responsive img img-thumbnail" src="uploads/<?php echo $data['image'] ?>" alt="Foto profil <?php echo  $data['username'] ?>">
-                <h2>@<?php echo $data['username'] ?></h2>
-            </div>
+    <div class="row no-gutters">
+        <div class="col-xl-12 img-cover">
+            <img src="uploads/<?php echo $data['image']?>" alt="Foto profil <?php echo $data['username'] ?>" class="cover-img">
+            <div class="overlay-black"></div>
+            <img class="profile-img img-responsive img img-thumbnail" src="uploads/<?php echo $data['image'] ?>" alt="Foto profil <?php echo  $data['username'] ?>">
+            <h2>@<?php echo $data['username'] ?></h2>
         </div>
-    <div class="container-xl">
-        <table class="table">
-            <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th>Email</th>
-            </tr>
-            <?php foreach($rows as $row) : ?>
-                <tr>
-                    <td> <?= ++$i ?>  </td>
-                    <td> <?=  $row['username'] ?>  </td>
-                    <td> <?=  $row['email'] ?>  </td>
-                </tr>
-            <?php endforeach;?>
-        </table>
+    </div>
+    <div class="row no-gutters" style="margin-top: 60px;">
+        <div class="col-xl-3">
+            <ul>
+                <li><h4>Explore</h4></li>
+                <li><h4>Settings</h4></li>
+            </ul>
+        </div>
+        <div class="col-xl-6 img-cover">
+            <ul>
+                <li>
+                    <h4>Bio</h4>
+                    <a><?php echo $data['bio']; ?></a>
+                </li><br />
+                <li>
+                    <h4>Desc</h4>
+                    <a><?php echo $data['description']; ?></a>
+                </li><br />
+                <li>
+                    <h4>Contact</h4>
+                    <a><?php echo $data['email']; ?></a>
+                </li><br />
+            </ul>
+        </div>
+        <div class="col-xl-3"></div>
     </div>
 
 <?php
