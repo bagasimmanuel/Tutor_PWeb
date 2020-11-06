@@ -21,7 +21,7 @@
     height: 200px;
     position: absolute;
     margin: 0px auto;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
 }
 
 .img-cover .overlay-black{
@@ -30,4 +30,13 @@
     height: 400px;
     background-color: #000000;
     opacity: 40%;
+}
+
+.img-cover h2{
+    position: absolute;
+    width: 100%;
+    top: 75%;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: bold;
 }

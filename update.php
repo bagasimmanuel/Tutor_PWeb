@@ -5,7 +5,6 @@
         header('location: login.php');
     }
 
-    include 'header.php';
     include 'conn.php';
 
     if(isset($_POST['submit'])){
@@ -48,6 +47,9 @@
     // var_dump($row);
     
     mysqli_close($conn);
+    
+    $pageTitle = 'Update Profil | Instagram KA WE :)';
+    include 'header.php';
 ?>
    
     <div class="jumbotron">

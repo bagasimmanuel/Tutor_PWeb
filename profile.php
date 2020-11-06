@@ -5,15 +5,17 @@
     if(!($_SESSION)){
         header('location: login.php?redirectProfile='.$id);
     }
-    include 'header.php';
 
     include 'conn.php';
-    $sql = "SELECT * FROM users WHERE id=$id";
+    $sql = "SELECT * FROM users WHERE id=$id LIMIT 1";
 
     $rows = mysqli_query($conn,$sql);
     $i = 0;
     mysqli_close($conn);
+    $data = mysqli_fetch_assoc($rows);
 
+    $pageTitle = 'Profil @'.$data['username'].' | Instagram KA WE :)';
+    include 'header.php';
 ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,11 +44,10 @@
     </nav>
         <div class="row no-gutters">
             <div class="col-xl-12 img-cover">
-                <?php foreach($rows as $row) : ?>
-                    <img src="uploads/<?=$row['image']?>" alt="Foto profil <?= $row['username'] ?>" class="cover-img">
-                    <div class="overlay-black"></div>
-                    <img class="profile-img img-responsive img img-thumbnail" src="uploads/<?=$row['image']?>" alt="Foto profil <?= $row['username'] ?>">
-                <?php endforeach;?>
+                <img src="uploads/<?php echo $data['image']?>" alt="Foto profil <?php echo $data['username'] ?>" class="cover-img">
+                <div class="overlay-black"></div>
+                <img class="profile-img img-responsive img img-thumbnail" src="uploads/<?php echo $data['image'] ?>" alt="Foto profil <?php echo  $data['username'] ?>">
+                <h2>@<?php echo $data['username'] ?></h2>
             </div>
         </div>
     <div class="container-xl">
@@ -61,7 +62,6 @@
                     <td> <?= ++$i ?>  </td>
                     <td> <?=  $row['username'] ?>  </td>
                     <td> <?=  $row['email'] ?>  </td>
-                    <td> <img src="uploads/<?=$row['image']?>" alt="Foto profil <?= $row['username'] ?>" class="img-thumbnail" width="200px" height="200px"> </td>
                 </tr>
             <?php endforeach;?>
         </table>

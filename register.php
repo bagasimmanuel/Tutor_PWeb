@@ -2,7 +2,6 @@
     session_start();
 
     include 'conn.php';
-    include 'header.php';
 
     if($_SESSION){
         header('location: index.php');
@@ -30,6 +29,9 @@
         mysqli_close($conn);
 
     }
+    
+    $pageTitle = 'Daftar | Instagram KA WE :)';
+    include 'header.php';
 ?>
 
     <div class="jumbotron">
